@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "protonDB_Steam_Compatibility"
+version = "0.0.1"
+authors = [
+    { name = "jacopman", email="N/A" },
+]
+description = "a python program that pulls from a steam library and cross references it with protonDB to verify linux compatibility"
+readme = "README.md"
+requires-python = ">3.14"
+classifiers = [
+    "Programing Language :: Python :: 3",
+    "Operating System :: Mac OS",
+]
+license = "unlicense"
+license-files = ["LICENSE"]
+
+[project.urls]
+homepage = "https://github.com/jacopman/ProtonCompatibility"
+issues = "https://github.com/jacopman/ProtonCompatibility/issues"
+
+[tool.pytest]
+minversion = "9.0"
+adopts = ["-ra", "-q"]
+testpaths = [
+    "Testing"
+]

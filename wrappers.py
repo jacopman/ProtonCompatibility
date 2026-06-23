@@ -1,7 +1,8 @@
 import subprocess
 import asyncio
-import func
 import os
+
+import func
 
 def print_compatibility_report(filtered_games: list[tuple[str, str, str]], mode: str) -> None:
     """
@@ -74,8 +75,11 @@ def modeSelection() -> str:
 
         if (key == '\x1b[A'):
             selectedOption = (selectedOption - 1) % len(searchType)
+            prompt = "Select a compatibility tier to search for (⌃ + ⌄ to navigate, Enter to select):"
+
         elif (key == '\x1b[B'):
             selectedOption = (selectedOption + 1) % len(searchType)
+            prompt = "Select a compatibility tier to search for (⌃ + ⌄ to navigate, Enter to select):"
         elif (key == '\r'):
             selected = True
         else:
@@ -107,6 +111,7 @@ async def main(apiKey: str | None, steamId: str| None):
         raise SystemError("no library found")
 
     async with asyncio.TaskGroup() as tg:
+        print(f"Found {len(library)} games in the library.")
         task1 = tg.create_task(func.filter_games_by_tier(library, mode))
         print(f"Filtering games by {mode.capitalize()} tier...", end="")
 
