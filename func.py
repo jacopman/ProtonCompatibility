@@ -31,7 +31,7 @@ def get_keystroke() -> str:
     return ch
 
 
-def get_steam_library(api_key: str | None, steam_id: str | None) -> dict:
+def get_steam_library(api_key: str | None, steam_id: str | None, base_url: str = "http://api.steampowered.com") -> dict:
     """Fetches the user's Steam library.
     ## Warning: 
         If either `api_key` or `steam_id` is None, the function will return `{}`.
@@ -46,7 +46,7 @@ def get_steam_library(api_key: str | None, steam_id: str | None) -> dict:
     """
     if not api_key or not steam_id:
         return {}
-    url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
+    url = f"{base_url}IplayerService/GetOwnedGames/v0001/"
     params = {
         'key': api_key,
         'steamid': steam_id,
@@ -138,3 +138,9 @@ async def filter_games_by_tier(games: dict, tierFilter: str) -> list[tuple[str, 
         if i % 10 == 0 :
             await asyncio.sleep(1)
     return filtered_games
+
+if __name__ == "__main__":
+    
+    library = get_steam_library("AE82776728C5D740C678BCD64C5F7115", "76561198871950343")
+    for (_, game_ID) in enumerate(library):
+        print(f"{library[game_ID]} (AppID: {game_ID})")
